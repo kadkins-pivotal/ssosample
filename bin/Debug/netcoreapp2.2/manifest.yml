@@ -1,0 +1,14 @@
+applications:
+- name: ssosample
+  disk_quota: 1G
+  instances: 1
+  memory: 1G
+  routes:
+  - route: ssosample.apps.pcf25.az.deployfast.io
+  stack: cflinuxfs3
+  command: cd ${HOME} && exec dotnet ./ssosample.dll --server.urls http://0.0.0.0:${PORT}
+  services:
+    - uaa-sso
+  env:
+    # Whitelist of redirect URI(s) allowed for the application. This value must start with http:// or https://
+    SSO_REDIRECT_URIS: http://ssosample.apps.pcf25.az.deployfast.io/**,https://ssosample.apps.pcf25.az.deployfast.io/**,https://localhost:5001/**
